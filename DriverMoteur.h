@@ -1,12 +1,14 @@
 // Permet un mouvement de typeRoue GAUCHE/DROITE dans le sensMouvement Avant/Arriere
 void mouvementRoue(int typeRoue, boolean sensMouvement) {
+  int DOUT1 = (sensMouvement ? HIGH : LOW);
+  int DOUT2 = (sensMouvement ? LOW : HIGH);
   if (typeRoue == MOTOR_DC_ROUE_DROITE) {
-    digitalWrite(DOUT_MOTEUR_GAUCHE_1, (sensMouvement ? HIGH : LOW));
-    digitalWrite(DOUT_MOTEUR_GAUCHE_2, (sensMouvement ? LOW : HIGH));
+    digitalWrite(DOUT_MOTEUR_GAUCHE_1, DOUT1);
+    digitalWrite(DOUT_MOTEUR_GAUCHE_2, DOUT2);
     analogWrite(DOUT_MOTEUR_GAUCHE_EN, MOTOR_DC_VELOCITY);
   } else if (typeRoue ==  MOTOR_DC_ROUE_GAUCHE) {
-    digitalWrite(DOUT_MOTEUR_DROITE_1, (sensMouvement ? HIGH : LOW));
-    digitalWrite(DOUT_MOTEUR_DROITE_2, (sensMouvement ? LOW : HIGH));
+    digitalWrite(DOUT_MOTEUR_DROITE_1, DOUT1);
+    digitalWrite(DOUT_MOTEUR_DROITE_2, DOUT2);
     analogWrite(DOUT_MOTEUR_DROITE_EN, MOTOR_DC_VELOCITY);  
   }
   delay(MOTOR_DC_DELAY);
