@@ -1,43 +1,43 @@
 #include <Servo.h>
 #include "Arduino.h"
-#include "AffectationDesEntreesSorties.h"
-#include "DeclarationDesVariables.h"
-#include "Configuration.h"
 #include "DriverLEDs.h"
 #include "DriverMoteur.h"
 #include "DriverUltraSonicSensor.h"
 #include "DriverServo.h"
-#include "Initialisation.h"
 #include "AlgorithmeQuiChercheUneIssue.h"
 
 
 void setup() {
-  initialisation();
+  initLEDs();
+  initMoteur();
+  initServo();
+  initUltraSonicSensor();
+  Serial.begin(9600);
 }
 
 void loop() {
-  /*RegardeToutDroit();
-  if (LaVoieEstLibre()) {
-    RedardeAGauche();
-    if (LaVoieEstLibre()) {
-      RegardeToutDroit();
-      if (LaVoieEstLibre()) {
-        RegardeADroite();
-        if (LaVoieEstLibre()) {
+  regardeToutDroit();
+  if (laVoieEstLibre()) {
+    regardeAGauche();
+    if (laVoieEstLibre()) {
+      regardeToutDroit();
+      if (laVoieEstLibre()) {
+        regardeADroite();
+        if (laVoieEstLibre()) {
           if (!enMouvement) {
-            AvanceEnLigneDroite();
+            avanceEnLigneDroite();
           }
         } else {
-          ChercheUneIssue();
+          chercheUneIssue();
         }
       } else {
-        ChercheUneIssue();
+        chercheUneIssue();
       }
     } else {
-      ChercheUneIssue();
+      chercheUneIssue();
     }
   } else {
-    ChercheUneIssue();
+    chercheUneIssue();
   }
-  delay(1);*/
+  delay(1);
 }

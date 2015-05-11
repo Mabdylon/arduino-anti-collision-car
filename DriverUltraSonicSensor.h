@@ -1,6 +1,16 @@
+const char DIN_ULTRASONIC_ECHO = 1;
+const char DOUT_ULTRASONIC_TRIG = 2;
+
+float distance;
+
+void initUltraSonicSensor() {
+  pinMode(DIN_ULTRASONIC_ECHO, INPUT);
+  pinMode(DOUT_ULTRASONIC_TRIG, OUTPUT);
+}
+
 // Ecrit sur le trigger ULTRASONIC en HIGH ou en LOW
 void digitalWriteEchoHigh(boolean high) {
-  digitalWrite(DOUT_ULTRASONIC_TRIG, (high ? HIGH: LOW));
+  digitalWrite(DOUT_ULTRASONIC_TRIG, (high ? HIGH : LOW));
 }
 
 // Envoi une impulsion de 10 ms au trigger pour demander une mesure
@@ -16,7 +26,7 @@ void triggerMesure() {
 float getDistance() {
   triggerMesure();
   return  pulseIn(DIN_ULTRASONIC_ECHO, HIGH) / 58.0;
-} 
+}
 
 boolean laVoieEstLibre() {
   distance = getDistance();

@@ -1,3 +1,13 @@
+const char DOUT_LED_VERTE = 10;
+const char DOUT_LED_ORANGE = 11;
+const char DOUT_LED_ROUGE = 12;
+
+void initLEDs() {
+  pinMode(DOUT_LED_VERTE, OUTPUT);
+  pinMode(DOUT_LED_ORANGE, OUTPUT);
+  pinMode(DOUT_LED_ROUGE, OUTPUT);
+}
+
 // Permet de passer typeLed (green, orange, red) a l'etat allumée (activated)
 void switchLed(char typeLed, boolean activated) {
   if (activated) {
