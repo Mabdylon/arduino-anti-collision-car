@@ -6,10 +6,12 @@ const char DOUT_MOTEUR_DROITE_1 = 6;
 const char DOUT_MOTEUR_DROITE_2 = 7;
 const char DOUT_MOTEUR_DROITE_EN = 8;
 
-const int MOTOR_DC_VELOCITY = 128;
+const int MOTOR_DC_VELOCITY_GAUCHE = 250;
+const int MOTOR_DC_VELOCITY_DROITE = 128;
 const int MOTOR_DC_ROUE_DROITE = 1;
 const int MOTOR_DC_ROUE_GAUCHE = 2;
-const int MOTOR_DC_DELAY = 1000;
+const int MOTOR_DC_DELAY_PIVOT = 25;
+const int MOTOR_DC_DELAY_FORWARD = 100;
 
 boolean enMouvement = false;
 
@@ -39,40 +41,48 @@ void mouvementRoue(int typeRoue, boolean sensMouvement) {
   if (typeRoue == MOTOR_DC_ROUE_DROITE) {
     digitalWrite(DOUT_MOTEUR_GAUCHE_1, DOUT1);
     digitalWrite(DOUT_MOTEUR_GAUCHE_2, DOUT2);
-    analogWrite(DOUT_MOTEUR_GAUCHE_EN, MOTOR_DC_VELOCITY);
+    analogWrite(DOUT_MOTEUR_GAUCHE_EN, MOTOR_DC_VELOCITY_GAUCHE);
   } else if (typeRoue ==  MOTOR_DC_ROUE_GAUCHE) {
     digitalWrite(DOUT_MOTEUR_DROITE_1, DOUT1);
     digitalWrite(DOUT_MOTEUR_DROITE_2, DOUT2);
-    analogWrite(DOUT_MOTEUR_DROITE_EN, MOTOR_DC_VELOCITY);
+    analogWrite(DOUT_MOTEUR_DROITE_EN, MOTOR_DC_VELOCITY_DROITE);
   }
+  
   enMouvement = false;
 }
 
 void avanceEnLigneDroite() {
   mouvementRoue(MOTOR_DC_ROUE_DROITE, true);
   mouvementRoue(MOTOR_DC_ROUE_GAUCHE, true);
+  Serial.println("avance tout droit");
+  delay(MOTOR_DC_DELAY_FORWARD);
 }
 
 void arret() {
   analogWrite(DOUT_MOTEUR_DROITE_EN, 0);
   analogWrite(DOUT_MOTEUR_GAUCHE_EN, 0);
+  Serial.println("arret");
   enMouvement = false;
 }
 
-void pivoter(boolean droite) {
-  mouvementRoue(MOTOR_DC_ROUE_DROITE, (droite ? false : true));
-  mouvementRoue(MOTOR_DC_ROUE_GAUCHE, (droite ? true : false));
+void pivoter(boolean gauche) {
+  mouvementRoue(MOTOR_DC_ROUE_DROITE, (gauche ? false : true));
+  mouvementRoue(MOTOR_DC_ROUE_GAUCHE, (gauche ? true : false));
+  delay(MOTOR_DC_DELAY_PIVOT);
 }
 
 void pivoteAGauche() {
-  pivoter(false);
-}
-
-void pivoteADroite() {
+  Serial.println("pivot gauche");
   pivoter(true);
 }
 
+void pivoteADroite() {
+  Serial.println("pivot droit");
+  pivoter(false);
+}
+
 void demiTour() {
+  Serial.println("demi tour !");
   pivoteAGauche();
   pivoteAGauche();
 }

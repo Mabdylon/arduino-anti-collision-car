@@ -1,16 +1,17 @@
 boolean chercheUneIssueAGauche() {
   regardeAGauche();
-  delay(1000);
+  delay(DELAY_TO_LOOK);
   return laVoieEstLibre();
 }
 
 boolean chercheUneIssueADroite() {
   regardeADroite();
-  delay(1000);
+  delay(DELAY_TO_LOOK);
   return laVoieEstLibre();
 }
 
 void chercheUneIssue() {
+  arret();
   if (chercheUneIssueAGauche()) {
     pivoteAGauche();
   } else if (chercheUneIssueADroite()) {

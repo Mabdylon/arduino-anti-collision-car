@@ -1,5 +1,5 @@
-const char DIN_ULTRASONIC_ECHO = 1;
-const char DOUT_ULTRASONIC_TRIG = 2;
+const char DIN_ULTRASONIC_ECHO = 12;
+const char DOUT_ULTRASONIC_TRIG = 13;
 
 float distance;
 
@@ -25,10 +25,17 @@ void triggerMesure() {
 // Retourne la distance mesuree en cm
 float getDistance() {
   triggerMesure();
-  return  pulseIn(DIN_ULTRASONIC_ECHO, HIGH) / 58.0;
+  return  (pulseIn(DIN_ULTRASONIC_ECHO, HIGH) / 0.58) / 100;
 }
 
 boolean laVoieEstLibre() {
   distance = getDistance();
-  return (distance > 10);
+  Serial.println(distance);
+  return (distance > 30);
+}
+
+void testUltraSonic() {
+  float distance2 = getDistance();
+  Serial.println(distance2);
+  delay(300);
 }

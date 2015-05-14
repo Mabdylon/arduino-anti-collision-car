@@ -6,7 +6,6 @@
 #include "DriverServo.h"
 #include "AlgorithmeQuiChercheUneIssue.h"
 
-
 void setup() {
   initLEDs();
   initMoteur();
